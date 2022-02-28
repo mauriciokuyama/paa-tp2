@@ -4,7 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct Mapa {
+typedef struct Mapa
+{
     int **mat;
     int tamanhox;
     int tamanhoy;
