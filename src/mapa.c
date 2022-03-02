@@ -23,7 +23,7 @@ void inicializaMapaVazio(mapa *terreno, int x, int y, int tempolava)
 void leArqv(char *path)
 {
     FILE *arq;
-    char Linha[100];
+    char Linha[1000];
     mapa terreno;
     memtable table;
     int mapax, mapay, tempoheroi, tempolava, i, j,resultado;
@@ -37,7 +37,7 @@ void leArqv(char *path)
     {
 
         fscanf(arq, "%d %d %d %d", &mapax, &mapay, &tempoheroi, &tempolava);
-        fgets(Linha, 100, arq);
+        fgets(Linha, 1000, arq);
         inicializaMapaVazio(&terreno, mapax, mapay,tempolava);
         for (i = 0; i < mapax; i++)
         {
@@ -53,7 +53,7 @@ void leArqv(char *path)
             }
             char buffer[4];
             buffer[3] = '\0';
-            for (j = 0; j < mapay; j++)
+            for (j = 0; j < mapay && k + 2 < mapay; j++)
             {
                 buffer[0] = Linha[k];
                 buffer[1] = Linha[k + 1];
@@ -96,7 +96,7 @@ int calcDp(memtable *table, mapa terreno, int i, int j, int tempoheroi){
         dir = calcDp(table,terreno,i-1,j+1,tempoheroi);
     }
     table->mat[i][j].direct = esq < dir ? esquerda : direita;
-    menortempo = (esq < dir ? esq : dir); 
+    menortempo = (esq < dir ? esq : dir);
     if (menortempo == inf) return table->mat[i][j].peso = inf;
     return table->mat[i][j].peso = tempoheroi + terreno.mat[i][j] + menortempo;
 }

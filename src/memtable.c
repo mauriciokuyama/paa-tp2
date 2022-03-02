@@ -22,6 +22,7 @@ void imprimeResultado(memtable table, int tempolimite)
     int i, j, menorpeso, menorpesoj;
     i = table.tamanhox - 1;
     j = 0;
+    menorpesoj = 0;
     menorpeso = table.mat[i][j].peso;
     for (j = 1; j < table.tamanhoy; j++)
     {
@@ -55,7 +56,7 @@ void imprimeResultado(memtable table, int tempolimite)
             j++;
         }
     }
-    else printf("Samus falhou na missao");
+    else printf("Samus falhou na missao\n");
 }
 
 // função para desalocar
