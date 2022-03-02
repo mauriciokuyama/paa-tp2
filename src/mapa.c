@@ -53,7 +53,7 @@ void leArqv(char *path)
             }
             char buffer[4];
             buffer[3] = '\0';
-            for (j = 0; j < mapay; j++)
+            for (j = 0; j < mapay && k + 2 < mapay; j++)
             {
                 buffer[0] = Linha[k];
                 buffer[1] = Linha[k + 1];
