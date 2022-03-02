@@ -4,7 +4,6 @@
 
 #include "memtable.h"
 
-
 // função pra inicializar matriz terreno com 0
 void inicializaMemtableVazia(memtable *table, int x, int y)
 {
@@ -18,34 +17,45 @@ void inicializaMemtableVazia(memtable *table, int x, int y)
     }
 }
 
-void imprimeResultado(memtable table)
+void imprimeResultado(memtable table, int tempolimite)
 {
     int i, j, menorpeso, menorpesoj;
     i = table.tamanhox - 1;
     j = 0;
-    menorpeso = table.mat[i][j].peso; 
-    for (j = 1; j < table.tamanhoy; j++) {
-        if (menorpeso > table.mat[i][j].peso){
+    menorpeso = table.mat[i][j].peso;
+    for (j = 1; j < table.tamanhoy; j++)
+    {
+        if (menorpeso > table.mat[i][j].peso)
+        {
             menorpeso = table.mat[i][j].peso;
             menorpesoj = j;
-        } 
-    }
-    j = 0;
-    while(j < table.tamanhox ){
-        printf("x: %d y: %d\n",i,menorpesoj);
-        if(i%2 == 0){
-            if (table.mat[i][menorpesoj].direct == esquerda){
-                menorpesoj--;
-            }
         }
-        else{
-            if (table.mat[i][menorpesoj].direct == direita){
-                menorpesoj++;
-            }
-        }
-        i--;
-        j++;
     }
+    if (menorpeso <= tempolimite)
+    {
+        j = 0;
+        while (j < table.tamanhox)
+        {
+            printf("%d %d\n", i, menorpesoj);
+            if (i % 2 == 0)
+            {
+                if (table.mat[i][menorpesoj].direct == esquerda)
+                {
+                    menorpesoj--;
+                }
+            }
+            else
+            {
+                if (table.mat[i][menorpesoj].direct == direita)
+                {
+                    menorpesoj++;
+                }
+            }
+            i--;
+            j++;
+        }
+    }
+    else printf("Samus falhou na missão");
 }
 
 // função para desalocar

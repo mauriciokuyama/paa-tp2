@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "*.c": "c",
-        "type_traits": "c"
+        "type_traits": "c",
+        "mapa.h": "c"
     }
 }

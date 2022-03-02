@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+
+
 //iscalc = false, nao calculado, iscalc = true, ja calculado
 typedef enum {direita, esquerda} Direct;
 typedef struct Item{
@@ -19,7 +21,7 @@ typedef struct Memtable
 } memtable;
 
 void inicializaMemtableVazia(memtable *table, int x, int y);
-void imprimeResultado(memtable table);
+void imprimeResultado(memtable table,int tempolimite);
 void desalocaMemtable(memtable table);
 
 

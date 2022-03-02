@@ -74,7 +74,7 @@ void leArqv(char *path)
     for(i=terreno.tamanhoy-1; i>=0; i--){
         resultado = calcDp(&table,terreno,mapax-1,i,tempoheroi);
     }
-    imprimeResultado(table);
+    imprimeResultado(table,(terreno.tempolava*terreno.tamanhox));
     desalocaMemtable(table);
     desalocaMapa(terreno);
 }
