@@ -70,6 +70,7 @@ void leArqv(char *path)
             }
         }
     }
+    fclose(arq);
     inicializaMemtableVazia(&table,mapax,mapay);
     for(i=terreno.tamanhoy-1; i>=0; i--){
         resultado = calcDp(&table,terreno,mapax-1,i,tempoheroi);
