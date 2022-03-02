@@ -18,19 +18,33 @@ void inicializaMemtableVazia(memtable *table, int x, int y)
     }
 }
 
-void imprimeMemtable(memtable table)
+void imprimeResultado(memtable table)
 {
-    int i, j;
-    for (i = 0; i < table.tamanhox; i++)
-    {
-        for (j = 0; j < table.tamanhoy; j++)
-        {
-            if(i%2){
-                printf("      ");
+    int i, j, menorpeso, menorpesoj;
+    i = table.tamanhox - 1;
+    j = 0;
+    menorpeso = table.mat[i][j].peso; 
+    for (j = 1; j < table.tamanhoy; j++) {
+        if (menorpeso > table.mat[i][j].peso){
+            menorpeso = table.mat[i][j].peso;
+            menorpesoj = j;
+        } 
+    }
+    j = 0;
+    while(j < table.tamanhox ){
+        printf("x: %d y: %d\n",i,menorpesoj);
+        if(i%2 == 0){
+            if (table.mat[i][menorpesoj].direct == esquerda){
+                menorpesoj--;
             }
-            printf("peso: %d direcao: %d ", table.mat[i][j].peso,table.mat[i][j].direct);
         }
-        printf("\n");
+        else{
+            if (table.mat[i][menorpesoj].direct == direita){
+                menorpesoj++;
+            }
+        }
+        i--;
+        j++;
     }
 }
 

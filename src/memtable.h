@@ -5,11 +5,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-//direct = false, movimento à esquerda, direct = true, movimento à direita
 //iscalc = false, nao calculado, iscalc = true, ja calculado
+typedef enum {direita, esquerda} Direct;
 typedef struct Item{
     int peso;
-    bool direct,iscalc;
+    Direct direct,iscalc;
 }item;
 
 typedef struct Memtable
@@ -19,7 +19,7 @@ typedef struct Memtable
 } memtable;
 
 void inicializaMemtableVazia(memtable *table, int x, int y);
-void imprimeMemtable(memtable table);
+void imprimeResultado(memtable table);
 void desalocaMemtable(memtable table);
 
 

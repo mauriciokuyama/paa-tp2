@@ -10,12 +10,12 @@ typedef struct Mapa
     int **mat;
     int tamanhox;
     int tamanhoy;
+    int tempolava;
 } mapa;
 
-void inicializaMapaVazio(mapa *terreno, int x, int y);
+void inicializaMapaVazio(mapa *terreno, int x, int y, int tempolava);
 void leArqv(char *path);
-int calcDp(memtable *table, mapa terreno, int i, int j, int movecost);
-void imprimeMapa(mapa terreno);
+int calcDp(memtable *table, mapa terreno, int i, int j, int tempoh);
 void desalocaMapa(mapa terreno);
 
 #endif

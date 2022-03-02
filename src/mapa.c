@@ -1,16 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 
 #include "mapa.h"
-#define inf 1000000000
+#define inf INT_MAX
 
 // função pra inicializar matriz terreno com 0
-void inicializaMapaVazio(mapa *terreno, int x, int y)
+void inicializaMapaVazio(mapa *terreno, int x, int y, int tempolava)
 {
     int i;
     terreno->tamanhox = x;
     terreno->tamanhoy = y;
+    terreno->tempolava = tempolava;
     terreno->mat = calloc(x, sizeof(int *));
     for (i = 0; i < x; i++)
     {
@@ -24,7 +26,7 @@ void leArqv(char *path)
     char Linha[100];
     mapa terreno;
     memtable table;
-    int mapax, mapay, tempoh, tempol, i, j,resultado;
+    int mapax, mapay, tempoheroi, tempolava, i, j,resultado;
     arq = fopen(path, "rt");
     if (!arq)
     {
@@ -34,9 +36,9 @@ void leArqv(char *path)
     if (!feof(arq))
     {
 
-        fscanf(arq, "%d %d %d %d", &mapax, &mapay, &tempoh, &tempol);
+        fscanf(arq, "%d %d %d %d", &mapax, &mapay, &tempoheroi, &tempolava);
         fgets(Linha, 100, arq);
-        inicializaMapaVazio(&terreno, mapax, mapay);
+        inicializaMapaVazio(&terreno, mapax, mapay,tempolava);
         for (i = 0; i < mapax; i++)
         {
             fgets(Linha, 100, arq);
@@ -70,45 +72,35 @@ void leArqv(char *path)
     }
     inicializaMemtableVazia(&table,mapax,mapay);
     for(i=terreno.tamanhoy-1; i>=0; i--){
-        resultado = calcDp(&table,terreno,mapax-1,i,tempoh);
+        resultado = calcDp(&table,terreno,mapax-1,i,tempoheroi);
     }
-    imprimeMemtable(table);
+    imprimeResultado(table);
     desalocaMemtable(table);
     desalocaMapa(terreno);
 }
 
-int calcDp(memtable *table, mapa terreno, int i, int j, int movecost){
-    int esq, dir;
+int calcDp(memtable *table, mapa terreno, int i, int j, int tempoheroi){
+    int esq, dir, menortempo;
     if (i == -1) return 0;
     if (j < 0 || j == terreno.tamanhoy) return inf;
+    if (table->mat[i][j].peso == inf || terreno.mat[i][j] > terreno.tempolava * (terreno.tamanhox-i)) return table->mat[i][j].peso = inf;
     if (table->mat[i][j].iscalc) return table->mat[i][j].peso;
-    if (terreno.mat[i][j] >= inf) return inf;
     table->mat[i][j].iscalc = true;
     if(i % 2 == 0){
-        esq = calcDp(table,terreno,i-1,j-1,movecost);
-        dir = calcDp(table,terreno,i-1,j,movecost);
-        table->mat[i][j].direct = esq < dir ? false : true;      
-        return table->mat[i][j].peso = movecost + terreno.mat[i][j] + (esq < dir ? esq : dir);
+        esq = calcDp(table,terreno,i-1,j-1,tempoheroi);
+        dir = calcDp(table,terreno,i-1,j,tempoheroi);
     }
-    esq = calcDp(table,terreno,i-1,j,movecost);
-    dir = calcDp(table,terreno,i-1,j+1,movecost);
-    table->mat[i][j].direct = esq < dir ? false : true; 
-    return table->mat[i][j].peso = movecost + terreno.mat[i][j] + (esq < dir ? esq : dir);
+    else{
+        esq = calcDp(table,terreno,i-1,j,tempoheroi);
+        dir = calcDp(table,terreno,i-1,j+1,tempoheroi);
+    }
+    table->mat[i][j].direct = esq < dir ? esquerda : direita;
+    menortempo = (esq < dir ? esq : dir); 
+    if (menortempo == inf) return table->mat[i][j].peso = inf;
+    return table->mat[i][j].peso = tempoheroi + terreno.mat[i][j] + menortempo;
 }
 
 
-void imprimeMapa(mapa terreno)
-{
-    int i, j;
-    for (i = 0; i < terreno.tamanhox; i++)
-    {
-        for (j = 0; j < terreno.tamanhoy; j++)
-        {
-            printf("%d ", terreno.mat[i][j]);
-        }
-        printf("\n");
-    }
-}
 
 // função para desalocar
 void desalocaMapa(mapa terreno)
