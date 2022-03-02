@@ -6,6 +6,6 @@
 
 
 int main(void) {
-    leArqv("data/entrada2.txt");
+    leArqv("data/entrada.txt");
     return 0;
 }

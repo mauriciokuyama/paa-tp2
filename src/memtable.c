@@ -55,7 +55,7 @@ void imprimeResultado(memtable table, int tempolimite)
             j++;
         }
     }
-    else printf("Samus falhou na missão");
+    else printf("Samus falhou na missao");
 }
 
 // função para desalocar
