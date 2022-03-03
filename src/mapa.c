@@ -22,6 +22,7 @@ void inicializaMapaVazio(mapa *terreno, int x, int y, int tempolava)
     }
 }
 
+// função responsável por ler o arquivo de entrada e transformar em uma matriz reponsável por armazenar o mapa
 void leArqv(char *path)
 {
     FILE *arq;
@@ -82,6 +83,7 @@ void leArqv(char *path)
     desalocaMapa(terreno);
 }
 
+// função responsável por calcular a direção da movimentação do heroi de acordo com sua posição atual
 int calcDp(memtable *table, mapa terreno, int i, int j, int tempoheroi){
     int esq, dir, menortempo;
     if (i == -1) return 0;
@@ -102,8 +104,6 @@ int calcDp(memtable *table, mapa terreno, int i, int j, int tempoheroi){
     if (menortempo == inf) return table->mat[i][j].peso = inf;
     return table->mat[i][j].peso = tempoheroi + terreno.mat[i][j] + menortempo;
 }
-
-
 
 // função para desalocar
 void desalocaMapa(mapa terreno)

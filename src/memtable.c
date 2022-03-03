@@ -17,6 +17,7 @@ void inicializaMemtableVazia(memtable *table, int x, int y)
     }
 }
 
+// função pra imprimir resultado de acordo com a posição atual do heroi
 void imprimeResultado(memtable table, int tempolimite)
 {
     int i, j, menorpeso, menorpesoj;
