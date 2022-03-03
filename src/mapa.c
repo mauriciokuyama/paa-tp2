@@ -4,7 +4,9 @@
 #include <limits.h>
 
 #include "mapa.h"
+
 #define inf INT_MAX
+#define MAX_LINHA 1000
 
 // função pra inicializar matriz terreno com 0
 void inicializaMapaVazio(mapa *terreno, int x, int y, int tempolava)
@@ -20,10 +22,11 @@ void inicializaMapaVazio(mapa *terreno, int x, int y, int tempolava)
     }
 }
 
+// função responsável por ler o arquivo de entrada e transformar em uma matriz reponsável por armazenar o mapa
 void leArqv(char *path)
 {
     FILE *arq;
-    char Linha[1000];
+    char Linha[MAX_LINHA];
     mapa terreno;
     memtable table;
     int mapax, mapay, tempoheroi, tempolava, i, j,resultado;
@@ -37,11 +40,11 @@ void leArqv(char *path)
     {
 
         fscanf(arq, "%d %d %d %d", &mapax, &mapay, &tempoheroi, &tempolava);
-        fgets(Linha, 1000, arq);
+        fgets(Linha, MAX_LINHA, arq);
         inicializaMapaVazio(&terreno, mapax, mapay,tempolava);
         for (i = 0; i < mapax; i++)
         {
-            fgets(Linha, 100, arq);
+            fgets(Linha, MAX_LINHA, arq);
             int k;
             if (i % 2 == 0)
             {
@@ -53,7 +56,7 @@ void leArqv(char *path)
             }
             char buffer[4];
             buffer[3] = '\0';
-            for (j = 0; j < mapay && k + 2 < mapay; j++)
+            for (j = 0; j < mapay; j++)
             {
                 buffer[0] = Linha[k];
                 buffer[1] = Linha[k + 1];
@@ -80,6 +83,7 @@ void leArqv(char *path)
     desalocaMapa(terreno);
 }
 
+// função responsável por calcular a direção da movimentação do heroi de acordo com sua posição atual
 int calcDp(memtable *table, mapa terreno, int i, int j, int tempoheroi){
     int esq, dir, menortempo;
     if (i == -1) return 0;
@@ -100,8 +104,6 @@ int calcDp(memtable *table, mapa terreno, int i, int j, int tempoheroi){
     if (menortempo == inf) return table->mat[i][j].peso = inf;
     return table->mat[i][j].peso = tempoheroi + terreno.mat[i][j] + menortempo;
 }
-
-
 
 // função para desalocar
 void desalocaMapa(mapa terreno)
