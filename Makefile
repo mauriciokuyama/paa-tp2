@@ -28,6 +28,16 @@ $(BIN_PATH): $(BUILD_DIR) $(OBJ_DIR) $(OBJS)
 run: $(BIN_PATH)
 	@./$<
 
+.PHONY: inputgen
+inputgen:
+ifeq ($(OS), Windows_NT)
+	mingw32-gcc generator/main.c generator/mapa.c -o main
+	./main
+else
+	gcc generator/main.c generator/mapa.c -o main
+	./main
+endif
+	
 $(OBJS): $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
