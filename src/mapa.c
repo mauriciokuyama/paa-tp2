@@ -4,7 +4,9 @@
 #include <limits.h>
 
 #include "mapa.h"
+
 #define inf INT_MAX
+#define MAX_LINHA 1000
 
 // função pra inicializar matriz terreno com 0
 void inicializaMapaVazio(mapa *terreno, int x, int y, int tempolava)
@@ -23,7 +25,7 @@ void inicializaMapaVazio(mapa *terreno, int x, int y, int tempolava)
 void leArqv(char *path)
 {
     FILE *arq;
-    char Linha[1000];
+    char Linha[MAX_LINHA];
     mapa terreno;
     memtable table;
     int mapax, mapay, tempoheroi, tempolava, i, j,resultado;
@@ -37,11 +39,11 @@ void leArqv(char *path)
     {
 
         fscanf(arq, "%d %d %d %d", &mapax, &mapay, &tempoheroi, &tempolava);
-        fgets(Linha, 1000, arq);
+        fgets(Linha, MAX_LINHA, arq);
         inicializaMapaVazio(&terreno, mapax, mapay,tempolava);
         for (i = 0; i < mapax; i++)
         {
-            fgets(Linha, 100, arq);
+            fgets(Linha, MAX_LINHA, arq);
             int k;
             if (i % 2 == 0)
             {
