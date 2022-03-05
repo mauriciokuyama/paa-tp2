@@ -1,5 +1,5 @@
-#ifndef MEMTABLE_H
-#define MEMTABLE_H
+#ifndef Memtabela_H
+#define Memtabela_H
 
 
 #include <stdio.h>
@@ -15,14 +15,14 @@ typedef struct Item {
     bool foiCalculado;
 } item;
 
-typedef struct Memtable {
+typedef struct Memtabela {
     item **mat;
     int tamanhox, tamanhoy;
-} memtable;
+} memtabela;
 
-void inicializaMemtableVazia(memtable *table, int x, int y);
-void imprimeResultado(memtable table,int tempolimite);
-void desalocaMemtable(memtable table);
+void inicializaMemtabelaVazia(memtabela *tabela, int x, int y);
+void imprimeResultado(memtabela tabela,int tempolimite);
+void desalocaMemtabela(memtabela tabela);
 
 
 #endif

@@ -29,7 +29,7 @@ void leArqv(char *path)
     FILE *arq,*arqcsv;
     char Linha[MAX_LINHA];
     mapa terreno;
-    memtable table;
+    memtabela tabela;
     int mapax, mapay, tempoheroi, tempolava, i, j, qtrecursao;
     clock_t t;
     qtrecursao = 0;
@@ -77,42 +77,42 @@ void leArqv(char *path)
         }
     }
     fclose(arq);
-    inicializaMemtableVazia(&table,mapax,mapay);
+    inicializaMemtabelaVazia(&tabela,mapax,mapay);
     arqcsv = fopen("./data/desempenho.csv","a");
     t = clock();
     for(i=terreno.tamanhoy-1; i>=0; i--){
         qtrecursao++;
-        calcDp(&table,terreno,mapax-1,i,tempoheroi,&qtrecursao);
+        calcDp(&tabela,terreno,mapax-1,i,tempoheroi,&qtrecursao);
     }
     t = clock() - t;
     fprintf(arqcsv,"%d;%d;%d;%.2lf\n",terreno.tamanhox,terreno.tamanhoy,qtrecursao,((double)t)/((CLOCKS_PER_SEC/1000.0)));
     fclose(arqcsv);
-    imprimeResultado(table,(terreno.tempolava*terreno.tamanhox));
-    desalocaMemtable(table);
+    imprimeResultado(tabela,(terreno.tempolava*terreno.tamanhox));
+    desalocaMemtabela(tabela);
     desalocaMapa(terreno);
 }
 
 // função responsável por calcular a direção da movimentação do heroi de acordo com sua posição atual
-int calcDp(memtable *table, mapa terreno, int i, int j, int tempoheroi, int *qtrecursao){
+int calcDp(memtabela *tabela, mapa terreno, int i, int j, int tempoheroi, int *qtrecursao){
     int esq, dir, menortempo;
     (*qtrecursao)++;
     if (i == -1) return 0;
     if (j < 0 || j == terreno.tamanhoy) return inf;
-    if (table->mat[i][j].peso == inf || terreno.mat[i][j] > terreno.tempolava * (terreno.tamanhox-i)) return table->mat[i][j].peso = inf;
-    if (table->mat[i][j].foiCalculado) return table->mat[i][j].peso;
-    table->mat[i][j].foiCalculado = true;
+    if (tabela->mat[i][j].peso == inf || terreno.mat[i][j] > terreno.tempolava * (terreno.tamanhox-i)) return tabela->mat[i][j].peso = inf;
+    if (tabela->mat[i][j].foiCalculado) return tabela->mat[i][j].peso;
+    tabela->mat[i][j].foiCalculado = true;
     if(i % 2 == 0){
-        esq = calcDp(table,terreno,i-1,j-1,tempoheroi,qtrecursao);
-        dir = calcDp(table,terreno,i-1,j,tempoheroi,qtrecursao);
+        esq = calcDp(tabela,terreno,i-1,j-1,tempoheroi,qtrecursao);
+        dir = calcDp(tabela,terreno,i-1,j,tempoheroi,qtrecursao);
     }
     else{
-        esq = calcDp(table,terreno,i-1,j,tempoheroi,qtrecursao);
-        dir = calcDp(table,terreno,i-1,j+1,tempoheroi,qtrecursao);
+        esq = calcDp(tabela,terreno,i-1,j,tempoheroi,qtrecursao);
+        dir = calcDp(tabela,terreno,i-1,j+1,tempoheroi,qtrecursao);
     }
-    table->mat[i][j].direcao = esq < dir ? esquerda : direita;
+    tabela->mat[i][j].direcao = esq < dir ? esquerda : direita;
     menortempo = (esq < dir ? esq : dir);
-    if (menortempo == inf) return table->mat[i][j].peso = inf;
-    return table->mat[i][j].peso = tempoheroi + terreno.mat[i][j] + menortempo;
+    if (menortempo == inf) return tabela->mat[i][j].peso = inf;
+    return tabela->mat[i][j].peso = tempoheroi + terreno.mat[i][j] + menortempo;
 }
 
 // função para desalocar

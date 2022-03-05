@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "mapa.h"
-#include "memtable.h"
+#include "memtabela.h"
 
 int main(void)
 {

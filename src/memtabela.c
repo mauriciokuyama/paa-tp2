@@ -2,53 +2,53 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "memtable.h"
+#include "memtabela.h"
 
 // função pra inicializar matriz terreno com 0
-void inicializaMemtableVazia(memtable *table, int x, int y)
+void inicializaMemtabelaVazia(memtabela *tabela, int x, int y)
 {
     int i;
-    table->tamanhox = x;
-    table->tamanhoy = y;
-    table->mat = calloc(x, sizeof(item *));
+    tabela->tamanhox = x;
+    tabela->tamanhoy = y;
+    tabela->mat = calloc(x, sizeof(item *));
     for (i = 0; i < x; i++)
     {
-        table->mat[i] = calloc(y, sizeof(item));
+        tabela->mat[i] = calloc(y, sizeof(item));
     }
 }
 
 // função pra imprimir resultado de acordo com a posição atual do heroi
-void imprimeResultado(memtable table, int tempolimite)
+void imprimeResultado(memtabela tabela, int tempolimite)
 {
     int i, j, menorpeso, menorpesoj;
-    i = table.tamanhox - 1;
+    i = tabela.tamanhox - 1;
     j = 0;
     menorpesoj = 0;
-    menorpeso = table.mat[i][j].peso;
-    for (j = 1; j < table.tamanhoy; j++)
+    menorpeso = tabela.mat[i][j].peso;
+    for (j = 1; j < tabela.tamanhoy; j++)
     {
-        if (menorpeso > table.mat[i][j].peso)
+        if (menorpeso > tabela.mat[i][j].peso)
         {
-            menorpeso = table.mat[i][j].peso;
+            menorpeso = tabela.mat[i][j].peso;
             menorpesoj = j;
         }
     }
     if (menorpeso <= tempolimite)
     {
         j = 0;
-        while (j < table.tamanhox)
+        while (j < tabela.tamanhox)
         {
             printf("%d %d\n", i, menorpesoj);
             if (i % 2 == 0)
             {
-                if (table.mat[i][menorpesoj].direcao == esquerda)
+                if (tabela.mat[i][menorpesoj].direcao == esquerda)
                 {
                     menorpesoj--;
                 }
             }
             else
             {
-                if (table.mat[i][menorpesoj].direcao == direita)
+                if (tabela.mat[i][menorpesoj].direcao == direita)
                 {
                     menorpesoj++;
                 }
@@ -61,11 +61,11 @@ void imprimeResultado(memtable table, int tempolimite)
 }
 
 // função para desalocar
-void desalocaMemtable(memtable table)
+void desalocaMemtabela(memtabela tabela)
 {
-    for (int i = 0; i < table.tamanhox; i++)
+    for (int i = 0; i < tabela.tamanhox; i++)
     {
-        free(table.mat[i]);
+        free(tabela.mat[i]);
     }
-    free(table.mat);
+    free(tabela.mat);
 }

@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "memtable.h"
+#include "memtabela.h"
 
 typedef struct Mapa {
     int **mat;
@@ -14,7 +14,7 @@ typedef struct Mapa {
 
 void inicializaMapaVazio(mapa *terreno, int x, int y, int tempolava);
 void leArqv(char *path);
-int calcDp(memtable *table, mapa terreno, int i, int j, int tempoh, int *qtrecursao);
+int calcDp(memtabela *table, mapa terreno, int i, int j, int tempoh, int *qtrecursao);
 void desalocaMapa(mapa terreno);
 
 #endif
