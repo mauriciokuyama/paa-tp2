@@ -12,6 +12,8 @@ make
 # compilar e executar em um comando
 make run
 
+# compilar e executar o gerador de mapas
+make inputgen
+
 # limpar executável e arquivos de compilação
 make clean
-```
