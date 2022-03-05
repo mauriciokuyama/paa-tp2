@@ -30,7 +30,7 @@ void leArqv(char *path)
     char Linha[MAX_LINHA];
     mapa terreno;
     memtable table;
-    int mapax, mapay, tempoheroi, tempolava, i, j,resultado,qtrecursao;
+    int mapax, mapay, tempoheroi, tempolava, i, j, qtrecursao;
     clock_t t;
     qtrecursao = 0;
     arq = fopen(path, "rt");
@@ -82,7 +82,7 @@ void leArqv(char *path)
     t = clock();
     for(i=terreno.tamanhoy-1; i>=0; i--){
         qtrecursao++;
-        resultado = calcDp(&table,terreno,mapax-1,i,tempoheroi,&qtrecursao);
+        calcDp(&table,terreno,mapax-1,i,tempoheroi,&qtrecursao);
     }
     t = clock() - t;
     fprintf(arqcsv,"%d;%d;%d;%.2lf\n",terreno.tamanhox,terreno.tamanhoy,qtrecursao,((double)t)/((CLOCKS_PER_SEC/1000)));
