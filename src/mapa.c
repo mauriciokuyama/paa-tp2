@@ -85,7 +85,7 @@ void leArqv(char *path)
         calcDp(&table,terreno,mapax-1,i,tempoheroi,&qtrecursao);
     }
     t = clock() - t;
-    fprintf(arqcsv,"%d;%d;%d;%.2lf\n",terreno.tamanhox,terreno.tamanhoy,qtrecursao,((double)t)/((CLOCKS_PER_SEC/1000)));
+    fprintf(arqcsv,"%d;%d;%d;%.2lf\n",terreno.tamanhox,terreno.tamanhoy,qtrecursao,((double)t)/((CLOCKS_PER_SEC/1000.0)));
     fclose(arqcsv);
     imprimeResultado(table,(terreno.tempolava*terreno.tamanhox));
     desalocaMemtable(table);
