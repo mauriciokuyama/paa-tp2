@@ -7,15 +7,15 @@
 #include <stdbool.h>
 
 
-//iscalc = false, nao calculado, iscalc = true, ja calculado
-typedef enum {direita, esquerda} Direct;
-typedef struct Item{
+//foiCalculado = false, nao calculado, foiCalculado = true, ja calculado
+typedef enum {direita, esquerda} Direcao;
+typedef struct Item {
     int peso;
-    Direct direct,iscalc;
-}item;
+    Direcao direcao;
+    bool foiCalculado;
+} item;
 
-typedef struct Memtable
-{
+typedef struct Memtable {
     item **mat;
     int tamanhox, tamanhoy;
 } memtable;

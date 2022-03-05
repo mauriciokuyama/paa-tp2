@@ -41,14 +41,14 @@ void imprimeResultado(memtable table, int tempolimite)
             printf("%d %d\n", i, menorpesoj);
             if (i % 2 == 0)
             {
-                if (table.mat[i][menorpesoj].direct == esquerda)
+                if (table.mat[i][menorpesoj].direcao == esquerda)
                 {
                     menorpesoj--;
                 }
             }
             else
             {
-                if (table.mat[i][menorpesoj].direct == direita)
+                if (table.mat[i][menorpesoj].direcao == direita)
                 {
                     menorpesoj++;
                 }

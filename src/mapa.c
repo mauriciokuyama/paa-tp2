@@ -30,7 +30,7 @@ void leArqv(char *path)
     char Linha[MAX_LINHA];
     mapa terreno;
     memtable table;
-    int mapax, mapay, tempoheroi, tempolava, i, j,resultado,qtrecursao;
+    int mapax, mapay, tempoheroi, tempolava, i, j, qtrecursao;
     clock_t t;
     qtrecursao = 0;
     arq = fopen(path, "rt");
@@ -82,7 +82,7 @@ void leArqv(char *path)
     t = clock();
     for(i=terreno.tamanhoy-1; i>=0; i--){
         qtrecursao++;
-        resultado = calcDp(&table,terreno,mapax-1,i,tempoheroi,&qtrecursao);
+        calcDp(&table,terreno,mapax-1,i,tempoheroi,&qtrecursao);
     }
     t = clock() - t;
     fprintf(arqcsv,"%d;%d;%d;%.2lf\n",terreno.tamanhox,terreno.tamanhoy,qtrecursao,((double)t)/((CLOCKS_PER_SEC/1000)));
@@ -99,8 +99,8 @@ int calcDp(memtable *table, mapa terreno, int i, int j, int tempoheroi, int *qtr
     if (i == -1) return 0;
     if (j < 0 || j == terreno.tamanhoy) return inf;
     if (table->mat[i][j].peso == inf || terreno.mat[i][j] > terreno.tempolava * (terreno.tamanhox-i)) return table->mat[i][j].peso = inf;
-    if (table->mat[i][j].iscalc) return table->mat[i][j].peso;
-    table->mat[i][j].iscalc = true;
+    if (table->mat[i][j].foiCalculado) return table->mat[i][j].peso;
+    table->mat[i][j].foiCalculado = true;
     if(i % 2 == 0){
         esq = calcDp(table,terreno,i-1,j-1,tempoheroi,qtrecursao);
         dir = calcDp(table,terreno,i-1,j,tempoheroi,qtrecursao);
@@ -109,7 +109,7 @@ int calcDp(memtable *table, mapa terreno, int i, int j, int tempoheroi, int *qtr
         esq = calcDp(table,terreno,i-1,j,tempoheroi,qtrecursao);
         dir = calcDp(table,terreno,i-1,j+1,tempoheroi,qtrecursao);
     }
-    table->mat[i][j].direct = esq < dir ? esquerda : direita;
+    table->mat[i][j].direcao = esq < dir ? esquerda : direita;
     menortempo = (esq < dir ? esq : dir);
     if (menortempo == inf) return table->mat[i][j].peso = inf;
     return table->mat[i][j].peso = tempoheroi + terreno.mat[i][j] + menortempo;
