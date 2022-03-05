@@ -58,7 +58,7 @@ endif
 .PHONY: clean
 clean:
 ifeq ($(OS),Windows_NT)
-	rmdir /s /q $(BUILD_DIR)
+	rmdir /s /q $(BUILD_DIR) generator/main.exe
 else
-	rm -rf $(BUILD_DIR)
+	rm -rf $(BUILD_DIR) generator/main
 endif
