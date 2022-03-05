@@ -34,10 +34,10 @@ ifeq ($(OS), Windows_NT)
 	mingw32-gcc generator/main.c generator/mapa.c -o generator/main
 	./generator/main
 else
-	gcc generator/main.c generator/mapa.c -o main
+	gcc generator/main.c generator/mapa.c -o generator/main
 	./generator/main
 endif
-	
+
 $(OBJS): $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
