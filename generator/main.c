@@ -22,7 +22,7 @@ int main()
             terreno.mat[i][j] = 1 + (rand() % 1999);
         }
     }
-    strcpy(nomearq,"../data/");
+    strcpy(nomearq,"./data/");
     printf("Digite o nome do arquivo para armazenar o mapa: \n");
     scanf("%s",nomearq2);
     strcat(nomearq,nomearq2);
@@ -30,6 +30,7 @@ int main()
     arquivo = fopen(nomearq, "w");
     fprintf(arquivo,"%d %d %d %d\n",tamanhox, tamanhoy, tempoheroi, tempolava);
     for (int i = 0; i < tamanhox; i++){
+        if (i % 2 != 0)  fprintf(arquivo,"  ");
         for (int j = 0; j < tamanhoy; j++){
             if (terreno.mat[i][j] >= 1500) fprintf(arquivo,"### ");
             else if (terreno.mat[i][j] >= 1000) fprintf(arquivo,"000 ");

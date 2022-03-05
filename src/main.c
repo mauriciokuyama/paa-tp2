@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <string.h>
-
 #include "mapa.h"
 #include "memtable.h"
 
 int main(void)
 {
+    
     char nomeArquivo[100];
     char data[100];
     char buffer[100];

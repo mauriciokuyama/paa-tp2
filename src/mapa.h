@@ -15,7 +15,7 @@ typedef struct Mapa
 
 void inicializaMapaVazio(mapa *terreno, int x, int y, int tempolava);
 void leArqv(char *path);
-int calcDp(memtable *table, mapa terreno, int i, int j, int tempoh);
+int calcDp(memtable *table, mapa terreno, int i, int j, int tempoh, int *qtrecursao);
 void desalocaMapa(mapa terreno);
 
 #endif

@@ -12,6 +12,7 @@ void inicializaMapaVazio(mapa *terreno, int x, int y)
     {
         terreno->mat[i] = calloc(y, sizeof(int));
     }
+    terreno->tamanhox = x;
 }
 
 // função para desalocar
