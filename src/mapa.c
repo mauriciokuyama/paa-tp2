@@ -7,7 +7,7 @@
 #include "mapa.h"
 
 #define inf INT_MAX
-#define MAX_LINHA INT_MAX
+#define MAX_LINHA 5000
 
 // função pra inicializar matriz terreno com 0
 void inicializaMapaVazio(mapa *terreno, int x, int y, int tempolava)
