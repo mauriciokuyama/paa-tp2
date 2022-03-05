@@ -9,14 +9,12 @@
 
 //foiCalculado = false, nao calculado, foiCalculado = true, ja calculado
 typedef enum {direita, esquerda} Direcao;
-typedef struct Item
-{
+typedef struct Item {
     int peso;
     Direcao direcao, foiCalculado;
 } item;
 
-typedef struct Memtable
-{
+typedef struct Memtable {
     item **mat;
     int tamanhox, tamanhoy;
 } memtable;
