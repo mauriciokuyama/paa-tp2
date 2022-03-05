@@ -5,8 +5,7 @@
 #include <stdlib.h>
 #include "memtable.h"
 
-typedef struct Mapa
-{
+typedef struct Mapa {
     int **mat;
     int tamanhox;
     int tamanhoy;
