@@ -11,7 +11,8 @@
 typedef enum {direita, esquerda} Direcao;
 typedef struct Item {
     int peso;
-    Direcao direcao, foiCalculado;
+    Direcao direcao;
+    bool foiCalculado;
 } item;
 
 typedef struct Memtable {
