@@ -18,9 +18,6 @@ CFLAGS := $(WFLAGS) \
 LDFLAGS :=
 OBJS := $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(wildcard $(SRC_DIR)/*.c))
 
-.PHONY: all
-all: $(BIN_PATH)
-
 $(BIN_PATH): $(BUILD_DIR) $(OBJ_DIR) $(OBJS)
 	$(CC) $(OBJS) -o $@ $(LDFLAGS)
 
@@ -28,14 +25,13 @@ $(BIN_PATH): $(BUILD_DIR) $(OBJ_DIR) $(OBJS)
 run: $(BIN_PATH)
 	@./$<
 
-.PHONY: inputgen
-inputgen:
+inputgen: $(BUILD_DIR)
 ifeq ($(OS), Windows_NT)
-	mingw32-gcc generator/main.c generator/mapa.c -o generator/main
-	./generator/main
+	mingw32-gcc generator/main.c generator/mapa.c -o build/inputgen
+	./build/inputgen
 else
-	gcc generator/main.c generator/mapa.c -o generator/main
-	./generator/main
+	gcc generator/main.c generator/mapa.c -o build/inputgen
+	./build/inputgen
 endif
 
 $(OBJS): $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
@@ -58,7 +54,7 @@ endif
 .PHONY: clean
 clean:
 ifeq ($(OS),Windows_NT)
-	rmdir /s /q $(BUILD_DIR) generator/main.exe
+	rmdir /s /q $(BUILD_DIR)
 else
-	rm -rf $(BUILD_DIR) generator/main
+	rm -rf $(BUILD_DIR)
 endif
